@@ -17,6 +17,7 @@ public class Main {
             playerTwo.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
+            Thread.currentThread().interrupt();
         }
 
         System.out.println("3. Score= "+ winner.countScore); //значение общего счетчика в главном потоке после того как отработали два дочерних
