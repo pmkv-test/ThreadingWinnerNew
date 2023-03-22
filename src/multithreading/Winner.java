@@ -20,8 +20,8 @@ public class Winner {
         countScore++; // общий для двух потоков
 
         if (countScore == SCORE_CONST) {
+            isMain = false;
             try {
-                isMain = false;
                 wait(); //остановили победителя
             } catch (InterruptedException e) {
                 e.printStackTrace();
