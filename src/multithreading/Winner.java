@@ -6,14 +6,15 @@ public class Winner {
     private static final int SCORE_CONST = 100;
     public volatile int scoreMax = SCORE_CONST;
     public volatile int countScore = 0;
-    public volatile boolean isMain;
+    public volatile boolean isMain = false;
 
     public synchronized void winnerWaiting(String playerName) {
-            if (!isMain) {
+         if (!isMain) {
                 System.out.println("1. I`m latter! " + playerName );
-                notify(); //запускаем
                 isMain = true;
+                notify(); //запускаем
             } else System.out.println("2. I`m winner! " + playerName );
+
     }
 
     public synchronized int increment () {

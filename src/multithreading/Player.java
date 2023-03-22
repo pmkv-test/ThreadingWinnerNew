@@ -16,6 +16,6 @@ public class Player implements Runnable {
             //System.out.println(Thread.currentThread().getName() + " " + count);
         }
 
-        winner.winnerWaiting(Thread.currentThread().getName()+" "+count);
+            winner.winnerWaiting(Thread.currentThread().getName()+" "+count);
     }
 }
