@@ -9,17 +9,13 @@ public class Player implements Runnable {
 
     @Override
     public void run() {
-        int countScore = 0;
+        int count = 0;
 
-        while (countScore < winner.scoreMax-1) {
-            countScore = winner.increment();
-            //System.out.println(Thread.currentThread().getName() + " " + countScore);
+        while (count < winner.scoreMax-1) {
+            count = winner.increment();
+            //System.out.println(Thread.currentThread().getName() + " " + count);
         }
 
-        if (Thread.currentThread().getName() == winner.playerWinner) { // когда знаем победителя из последнего winner.increment() выводим название проигравшего потока и победившего в нужном порядке
-            System.out.println("1. I`m latter! " + winner.playerLatter);
-            System.out.println("2. I`m winner! " + winner.playerWinner);
-        }
-
+        winner.winnerWaiting(Thread.currentThread().getName()+" "+count);
     }
 }

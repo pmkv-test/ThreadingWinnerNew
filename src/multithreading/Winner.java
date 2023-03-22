@@ -1,18 +1,33 @@
 package multithreading;
 
+import static java.lang.Thread.sleep;
+
 public class Winner {
     private static final int SCORE_CONST = 100;
-    public int scoreMax = SCORE_CONST;
+    public volatile int scoreMax = SCORE_CONST;
     public volatile int countScore = 0;
-    public volatile String playerWinner;
-    public volatile String playerLatter;
+    public volatile boolean isMain;
+
+    public synchronized void winnerWaiting(String playerName) {
+            if (!isMain) {
+                System.out.println("1. I`m latter! " + playerName );
+                notify(); //запускаем
+                isMain = true;
+            } else System.out.println("2. I`m winner! " + playerName );
+    }
 
     public synchronized int increment () {
         countScore++; // общий для двух потоков
 
-        if (countScore == SCORE_CONST )
-            playerWinner = Thread.currentThread().getName(); //когда поток в последний раз увеличивал счетчик и countScore равен SCORE_CONST, запоминаем его имя
-        else playerLatter = Thread.currentThread().getName(); // обращаемся к значению playerLatter когда закончился  while в классе Player, поэтому в Player будет последнее название потока счетчик у которого countScore <> SCORE_CONST
+        if (countScore == SCORE_CONST) {
+            try {
+                isMain = false;
+                wait(); //остановили победителя
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+                Thread.currentThread().interrupt();
+            }
+        }
 
         return countScore;
     }
