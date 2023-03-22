@@ -14,7 +14,6 @@ public class Winner {
                 isMain = true;
                 notify(); //запускаем
             } else System.out.println("2. I`m winner! " + playerName );
-
     }
 
     public synchronized int increment () {
